@@ -1,8 +1,6 @@
 const { parse } = require('acorn')
 const OptionsParser = require('./lib/options-parser')
 const { detectReactComponents, generateDisplayNameCode } = require('./lib/component-detector')
-const fs = require('node:fs')
-const path = require('node:path')
 
 const VALID_FILE_SUFFIXES_REGEX = /\.(js|jsx|ts|tsx)$/
 
@@ -21,10 +19,6 @@ function ViteReactComponentNamePlugin(options) {
     enforce: 'post',
 
     transform(code, id) {
-      fs.mkdirSync('built', { recursive: true })
-      try {
-        fs.writeFileSync(`built/${path.basename(id)}`, code)
-      } catch (e) {}
       // Ignore non-JS files
       if (!VALID_FILE_SUFFIXES_REGEX.test(id.toLowerCase())) {
         return null
