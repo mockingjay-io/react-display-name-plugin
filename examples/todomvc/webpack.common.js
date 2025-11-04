@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WebpackReactComponentNamePlugin = require("@mockingjay-io/webpack-react-component-name");
+const WebpackReactComponentNamePlugin = require("react-display-name-plugin/webpack");
 const path = require("path");
 
 module.exports = {

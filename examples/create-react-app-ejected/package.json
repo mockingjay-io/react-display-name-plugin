@@ -58,7 +58,7 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "devDependencies": {
-    "@mockingjay-io/webpack-react-component-name": "../../"
+    "react-display-name-plugin": "../../"
   },
   "scripts": {
     "start": "node scripts/start.js",

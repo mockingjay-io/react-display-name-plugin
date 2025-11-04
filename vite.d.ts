@@ -8,12 +8,12 @@ import { PluginOptions } from './types';
  * ```js
  * import { defineConfig } from 'vite';
  * import react from '@vitejs/plugin-react';
- * import ViteReactComponentNamePlugin from '@mockingjay-io/webpack-react-component-name/vite';
+ * import reactDisplayNamePlugin from 'react-display-name-plugin/vite';
  *
  * export default defineConfig({
  *   plugins: [
  *     react(),
- *     ViteReactComponentNamePlugin({
+ *     reactDisplayNamePlugin({
  *       parseDependencies: true,
  *       exclude: ['node_modules']
  *     })
@@ -24,6 +24,6 @@ import { PluginOptions } from './types';
  * @param options - Plugin configuration options
  * @returns A Vite plugin instance
  */
-declare function ViteReactComponentNamePlugin(options?: PluginOptions): any;
+declare function reactDisplayNamePlugin(options?: PluginOptions): any;
 
-export = ViteReactComponentNamePlugin;
+export = reactDisplayNamePlugin;

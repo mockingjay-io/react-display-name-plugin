@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import viteplugin from '@mockingjay-io/webpack-react-component-name/vite'
+import viteplugin from 'react-display-name-plugin/vite'
 
 // https://vite.dev/config/
 export default defineConfig({

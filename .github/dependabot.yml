@@ -1,8 +1,9 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pnpm"
     directories:
       - "/examples/*"
+      - "/"
     schedule:
       interval: "monthly"
     labels: []

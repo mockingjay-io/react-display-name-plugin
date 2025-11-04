@@ -3,7 +3,7 @@ const constants = require('./constants')
 const _ = require('lodash')
 const fs = require('fs')
 
-const WebpackReactComponentNamePlugin = require('../index.js')
+const WebpackReactComponentNamePlugin = require('../webpack')
 const ModuleAppenderDependency = require('../lib/module-appender')
 
 const DISPLAY_NAME_REGEX = /\.displayName=/g

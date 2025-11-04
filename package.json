@@ -1,7 +1,7 @@
 {
-  "name": "@mockingjay-io/webpack-react-component-name",
-  "version": "1.1.0",
-  "description": "Makes React component names public on minified bundles for both Webpack and Vite",
+  "name": "react-display-name-plugin",
+  "version": "1.0.0",
+  "description": "Build plugin that preserves React component names in production bundles for DevTools. Supports Webpack and Vite.",
   "main": "index.js",
   "types": "index.d.ts",
   "private": false,
@@ -13,29 +13,35 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mockingjay-io/webpack-react-component-name.git"
+    "url": "git+https://github.com/mockingjay-io/react-display-name-plugin.git"
   },
   "keywords": [
     "webpack",
     "vite",
     "plugin",
     "react",
-    "mockingjay-io",
-    "webpack-react-component-name",
+    "displayname",
+    "react-devtools",
+    "component-names",
+    "production",
+    "minified",
     "vite-plugin",
+    "webpack-plugin",
     "typescript",
     "types"
   ],
   "author": "Niranjan Rajendran <niranjan@mockingjay.io> (https://github.com/niranjan94)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mockingjay-io/webpack-react-component-name/issues"
+    "url": "https://github.com/mockingjay-io/react-display-name-plugin/issues"
   },
-  "homepage": "https://github.com/mockingjay-io/webpack-react-component-name#readme",
+  "homepage": "https://github.com/mockingjay-io/react-display-name-plugin#readme",
   "files": [
     "lib/",
     "index.js",
     "index.d.ts",
+    "webpack.js",
+    "webpack.d.ts",
     "vite.js",
     "vite.d.ts",
     "types.d.ts"

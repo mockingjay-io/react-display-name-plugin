@@ -9,11 +9,11 @@ const VALID_FILE_SUFFIXES_REGEX = /\.(js|jsx|ts|tsx)$/
 // React component definitions, and updates the source code to populate the
 // displayName property. This property is used by the React Dev Tools extension
 // to determine the name of a component.
-function ViteReactComponentNamePlugin(options) {
+function reactDisplayNamePlugin(options) {
   const parsedOptions = new OptionsParser().parse(options)
 
   return {
-    name: 'vite-react-component-name',
+    name: 'react-display-name-plugin',
 
     // Run after other transforms (including JSX/TSX compilation)
     enforce: 'post',
@@ -82,11 +82,11 @@ function ViteReactComponentNamePlugin(options) {
       } catch (e) {
         // If parsing fails, just return the original code
         // This can happen with TypeScript or experimental syntax
-        console.warn(`[vite-react-component-name] Failed to parse ${id}: ${e.message}`)
+        console.warn(`[react-display-name-plugin] Failed to parse ${id}: ${e.message}`)
         return null
       }
     }
   }
 }
 
-module.exports = ViteReactComponentNamePlugin
+module.exports = reactDisplayNamePlugin

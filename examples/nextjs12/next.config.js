@@ -1,4 +1,4 @@
-const WebpackReactComponentNamePlugin = require("@mockingjay-io/webpack-react-component-name");
+const WebpackReactComponentNamePlugin = require("react-display-name-plugin/webpack");
 
 module.exports = {
   reactStrictMode: true,

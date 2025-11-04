@@ -17,7 +17,7 @@
         "@babel/core": "^7.28.5",
         "@babel/preset-env": "^7.28.5",
         "@babel/preset-react": "^7.28.5",
-        "@mockingjay-io/webpack-react-component-name": "../../",
+        "react-display-name-plugin": "../../",
         "babel-loader": "^9.2.1",
         "copy-webpack-plugin": "^12.0.2",
         "css-loader": "^6.7.3",

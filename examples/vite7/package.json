@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@mockingjay-io/webpack-react-component-name": "../../",
+    "react-display-name-plugin": "../../",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",

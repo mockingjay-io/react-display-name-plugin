@@ -1,4 +1,4 @@
-import { Dependency, DependencyTemplate } from 'webpack';
+import { Dependency } from 'webpack';
 
 /**
  * Webpack dependency that appends code to a module
@@ -29,7 +29,7 @@ export class ModuleAppenderDependency extends Dependency {
 /**
  * Template for applying the ModuleAppenderDependency
  */
-declare class ModuleAppenderDependencyTemplate extends DependencyTemplate {
+declare class ModuleAppenderDependencyTemplate {
   /**
    * Applies the dependency transformation to the source
    * @param dep - The dependency to apply
@@ -39,4 +39,4 @@ declare class ModuleAppenderDependencyTemplate extends DependencyTemplate {
   apply(dep: ModuleAppenderDependency, source: any, templateContext: any): void;
 }
 
-export = ModuleAppenderDependency;
+export default ModuleAppenderDependency;

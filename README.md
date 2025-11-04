@@ -1,10 +1,9 @@
 ## Overview
 
-**webpack-react-component-name** is a build plugin for both Webpack and Vite that makes your custom
+**react-display-name-plugin** is a build plugin for both Webpack and Vite that makes your custom
 React components visible within React Dev Tools and other tools that rely on the displayName parameter.
 
-_Note: This branch contains the version of this plugin that is compatible with
-Webpack 5 and Vite 2+. For support for Webpack 4, see 0.x [branch/version](https://github.com/mockingjay-io/webpack-react-component-name/tree/0.x.) of this plugin_
+_Note: This package supports Webpack 5 and Vite 2+. For older versions (Webpack 4), see the legacy package [@mockingjay-io/webpack-react-component-name](https://github.com/mockingjay-io/webpack-react-component-name)._
 
 Normally React component names are minified during compilation. This plugin
 makes these component names available in production bundles by hooking into
@@ -20,10 +19,10 @@ result in a small size increase to your production bundles.
 
 ## Installation
 
-1. Install via your prefered package manager:
+1. Install via your preferred package manager:
 
 ```bash
-npm install @mockingjay-io/webpack-react-component-name --save-dev
+npm install react-display-name-plugin --save-dev
 ```
 
 ### For Webpack
@@ -31,19 +30,19 @@ npm install @mockingjay-io/webpack-react-component-name --save-dev
 2. Import and add the plugin to your Webpack configuration:
 
 ```js
-const WebpackReactComponentNamePlugin = require('@mockingjay-io/webpack-react-component-name');
+const ReactDisplayNamePlugin = require('react-display-name-plugin/webpack');
 
 module.exports = {
   // ... other config
   plugins: [
-    new WebpackReactComponentNamePlugin({
+    new ReactDisplayNamePlugin({
       parseDependencies: true,
     })
   ],
 };
 ```
 
-**Next.js users** have to add this within `next.config.js`/`next.config.mjs`/`next.config.ts`. Examples available [here](https://github.com/mockingjay-io/webpack-react-component-name/tree/main/examples).
+**Next.js users** have to add this within `next.config.js`/`next.config.mjs`/`next.config.ts`. Examples available [here](https://github.com/mockingjay-io/react-display-name-plugin/tree/main/examples).
 
 ### For Vite
 
@@ -53,12 +52,12 @@ module.exports = {
 // vite.config.js / vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import ViteReactComponentNamePlugin from '@mockingjay-io/webpack-react-component-name/vite';
+import reactDisplayNamePlugin from 'react-display-name-plugin/vite';
 
 export default defineConfig({
   plugins: [
     react(),
-    ViteReactComponentNamePlugin({
+    reactDisplayNamePlugin({
       parseDependencies: true,
     })
   ],
@@ -66,6 +65,34 @@ export default defineConfig({
 ```
 
 **Note:** The Vite plugin should be placed after the React plugin in your plugins array, as it needs to run after JSX transformation.
+
+### Core Utilities (Advanced)
+
+For building custom plugins for other bundlers, you can import the core utilities directly:
+
+```js
+const {
+  detectReactComponents,
+  generateDisplayNameCode
+} = require('react-display-name-plugin');
+const { parse } = require('acorn');
+
+const code = 'function MyComponent() { return <div>Hello</div>; }';
+const ast = parse(code, { ecmaVersion: 'latest', sourceType: 'module' });
+
+detectReactComponents(ast, (node) => {
+  const componentName = node.id.name;
+  const injectionCode = generateDisplayNameCode(componentName);
+  console.log(injectionCode); // ;try{MyComponent.displayName="MyComponent";}catch(e){}
+});
+```
+
+**Available Utilities:**
+- `detectReactComponents(ast, callback)` - Walks an AST and detects React components
+- `generateDisplayNameCode(componentName)` - Generates displayName injection code
+- `argumentCreatesElement(argument)` - Checks if AST node is React.createElement
+- `argumentJsx(argument)` - Checks if AST node is JSX transform output (_jsx, _jsxs)
+- `shouldAddDisplayName(node)` - Checks if a node should have displayName added
 
 ## Options
 

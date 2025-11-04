@@ -29,4 +29,4 @@ export class OptionsParser {
   ignoreNodeModules(path: string): boolean;
 }
 
-export = OptionsParser;
+export default OptionsParser;

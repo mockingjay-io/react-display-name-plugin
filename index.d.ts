@@ -1,36 +1,28 @@
-import { Compiler } from 'webpack';
-import { PluginOptions } from './types';
-
 /**
- * Webpack plugin that makes React component names public on minified bundles
- * by adding displayName properties to component definitions.
+ * Core utilities for detecting React components and generating displayName code.
+ * These can be used to build custom plugins for other bundlers.
  *
  * @example
  * ```js
- * const WebpackReactComponentNamePlugin = require('@mockingjay-io/webpack-react-component-name');
+ * const { detectReactComponents, generateDisplayNameCode } = require('react-display-name-plugin');
+ * const { parse } = require('acorn');
  *
- * module.exports = {
- *   plugins: [
- *     new WebpackReactComponentNamePlugin({
- *       parseDependencies: true,
- *       exclude: ['node_modules']
- *     })
- *   ]
- * };
+ * const code = 'function MyComponent() { return <div>Hello</div>; }';
+ * const ast = parse(code, { ecmaVersion: 'latest', sourceType: 'module' });
+ *
+ * detectReactComponents(ast, (node) => {
+ *   const componentName = node.id.name;
+ *   const injectionCode = generateDisplayNameCode(componentName);
+ *   console.log(injectionCode); // ;try{MyComponent.displayName="MyComponent";}catch(e){}
+ * });
  * ```
  */
-declare class WebpackReactComponentNamePlugin {
-  /**
-   * Creates a new instance of the WebpackReactComponentNamePlugin
-   * @param options - Plugin configuration options
-   */
-  constructor(options?: PluginOptions);
 
-  /**
-   * Apply the plugin to the webpack compiler
-   * @param compiler - The webpack compiler instance
-   */
-  apply(compiler: Compiler): void;
-}
-
-export = WebpackReactComponentNamePlugin;
+export {
+  detectReactComponents,
+  generateDisplayNameCode,
+  argumentCreatesElement,
+  argumentJsx,
+  shouldAddDisplayName,
+  ComponentFoundCallback
+} from './lib/component-detector';
