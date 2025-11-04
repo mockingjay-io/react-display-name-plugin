@@ -1,4 +1,5 @@
-const OptionsParser = require('../lib/options-parser')
+import OptionsParser from '../lib/options-parser'
+import {describe, it, expect} from 'vitest';
 
 const optionsParser = new OptionsParser()
 

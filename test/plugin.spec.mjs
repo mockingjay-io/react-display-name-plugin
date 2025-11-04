@@ -1,13 +1,13 @@
-const utils = require('./utils')
-const constants = require('./constants')
-const _ = require('lodash')
-const fs = require('fs')
+import utils from './utils.js'
+import constants from './constants.js'
+import _ from 'lodash'
+import fs from 'fs'
+import { describe, it, expect } from 'vitest'
 
 const WebpackReactComponentNamePlugin = require('../webpack')
 const ModuleAppenderDependency = require('../lib/module-appender')
 
 const DISPLAY_NAME_REGEX = /\.displayName=/g
-jest.setTimeout(20000); // 1 second
 
 describe('WebpackReactComponentNamePlugin', () => {
 
