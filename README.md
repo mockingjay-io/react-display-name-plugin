@@ -2,7 +2,7 @@
 [![codecov](https://codecov.io/gh/mockingjay-io/react-display-name-plugin/graph/badge.svg?token=X8XYSPSGI4)](https://codecov.io/gh/mockingjay-io/react-display-name-plugin)
 [![NPM Version](https://img.shields.io/npm/v/react-display-name-plugin)](https://www.npmjs.com/package/react-display-name-plugin)
 
-## Overview
+# React displayName Plugin
 
 **react-display-name-plugin** is a build plugin for both Webpack and Vite that makes your custom
 React components visible within React Dev Tools and other tools that rely on the displayName parameter.
