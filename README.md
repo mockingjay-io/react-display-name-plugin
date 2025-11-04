@@ -4,7 +4,7 @@
 
 # React displayName Plugin
 
-**react-display-name-plugin** is a build plugin for both Webpack and Vite that makes your custom
+**react-display-name-plugin** is a build plugin for Webpack, Next.js & Vite that makes your custom
 React components visible within React Dev Tools and other tools that rely on the displayName parameter.
 
 _Note: This package supports Webpack 5 and Vite 2+. For older versions (Webpack 4), see the legacy package [@mockingjay-io/webpack-react-component-name](https://github.com/mockingjay-io/webpack-react-component-name)._
@@ -46,8 +46,6 @@ module.exports = {
 };
 ```
 
-**Next.js users** have to add this within `next.config.js`/`next.config.mjs`/`next.config.ts`. Examples available [here](https://github.com/mockingjay-io/react-display-name-plugin/tree/main/examples).
-
 ### For Vite
 
 2. Import and add the plugin to your Vite configuration:
@@ -69,6 +67,95 @@ export default defineConfig({
 ```
 
 **Note:** The Vite plugin should be placed after the React plugin in your plugins array, as it needs to run after JSX transformation.
+
+### For Next.js
+
+Next.js uses Webpack under the hood, so you'll need to customize the Webpack configuration in your Next.js config file.
+
+> **⚠️ Important:** This plugin currently only works with Webpack. If you're using Turbopack (Next.js's new bundler), you'll need to [opt back into using Webpack](https://nextjs.org/docs/app/api-reference/turbopack#using-webpack-instead).
+
+#### Using next.config.js (CommonJS)
+
+```js
+const ReactDisplayNamePlugin = require('react-display-name-plugin/webpack');
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config) => {
+    config.plugins.push(
+      new ReactDisplayNamePlugin({
+        parseDependencies: true,
+      })
+    );
+
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+```
+
+#### Using next.config.mjs (ES Modules)
+
+```js
+import ReactDisplayNamePlugin from 'react-display-name-plugin/webpack';
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config) => {
+    config.plugins.push(
+      new ReactDisplayNamePlugin({
+        parseDependencies: true,
+      })
+    );
+
+    return config;
+  },
+};
+
+export default nextConfig;
+```
+
+#### Suppressing Webpack Cache Warnings (Optional)
+
+Next.js may generate warnings like `[webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item`. These are safe to ignore, but if you want to suppress them:
+
+```js
+import ReactDisplayNamePlugin from 'react-display-name-plugin/webpack';
+
+const webpackComponentNamesAppenderCacheWarning =
+  /Skipped not serializable cache item.*ModuleAppenderDependency/i;
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config) => {
+    config.plugins.push(
+      new ReactDisplayNamePlugin({
+        parseDependencies: true,
+      })
+    );
+
+    // Suppress cache warnings
+    config.infrastructureLogging = {
+      level: 'error',
+      stream: {
+        write: (message) => {
+          if (webpackComponentNamesAppenderCacheWarning.test(message)) {
+            return;
+          }
+          process.stderr.write(message);
+        },
+      },
+    };
+
+    return config;
+  },
+};
+
+export default nextConfig;
+```
+
+**See working examples:** Check the [examples directory](https://github.com/mockingjay-io/react-display-name-plugin/tree/main/examples) for Next.js 12, 13, and 14 configurations with both App Router and Pages Router.
 
 ### Core Utilities (Advanced)
 
@@ -143,26 +230,6 @@ of the different permutations of React component definitions that we currently s
 If we are not detecting one of your components, please either file an Issue containing
 example source for a component which is not detected, or feel free to open a PR with
 the fix.
-
-## Note for Next.js users
-
-In Next.js the plugin may cause warnings like `[webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item` to be generated. These warnings are safe to ignore without any further action. But if you'd like to supress these warnings, as an interim solution, the following snippet can be added to your webpack config.
-
-```js
-const webpackComponentNamesAppenderCacheWarning =
-  /Skipped not serializable cache item.*ModuleAppenderDependency/i;
-
-config.infrastructureLogging = {
-  stream: {
-    write: (message) => {
-      if (webpackComponentNamesAppenderCacheWarning.test(message)) {
-        return;
-      }
-      process.stderr.write(message);
-    },
-  },
-};
-```
 
 ## License
 
