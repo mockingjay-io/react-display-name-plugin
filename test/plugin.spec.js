@@ -169,7 +169,7 @@ describe('WebpackReactComponentNamePlugin', () => {
       const numDisplayNameProperties = (minifiedSource.match(DISPLAY_NAME_REGEX) || []).length
 
       expect(minifiedSource).toContain('.displayName="App"')
-      expect(numDisplayNameProperties).toEqual(12)
+      expect(numDisplayNameProperties).toEqual(14)
     }
   })
 
