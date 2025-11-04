@@ -1,8 +1,9 @@
 {
   "name": "@mockingjay-io/webpack-react-component-name",
   "version": "1.0.2",
-  "description": "Makes React component names public on minified bundles",
+  "description": "Makes React component names public on minified bundles for both Webpack and Vite",
   "main": "index.js",
+  "types": "index.d.ts",
   "private": false,
   "scripts": {
     "watch": "webpack-dev-server --hot --inline --progress --colors",
@@ -16,10 +17,14 @@
   },
   "keywords": [
     "webpack",
+    "vite",
     "plugin",
     "react",
     "mockingjay-io",
-    "webpack-react-component-name"
+    "webpack-react-component-name",
+    "vite-plugin",
+    "typescript",
+    "types"
   ],
   "author": "Niranjan Rajendran <niranjan@mockingjay.io> (https://github.com/niranjan94)",
   "license": "MIT",
@@ -29,7 +34,11 @@
   "homepage": "https://github.com/mockingjay-io/webpack-react-component-name#readme",
   "files": [
     "lib/",
-    "index.js"
+    "index.js",
+    "index.d.ts",
+    "vite.js",
+    "vite.d.ts",
+    "types.d.ts"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -45,6 +54,9 @@
     "@emotion/styled": "^11.3.0",
     "@emotion/styled-base": "^11.0.0",
     "@eslint/js": "^9.6.0",
+    "@types/node": "^24.6.0",
+    "@types/webpack": "^5.28.0",
+    "acorn": "^8.15.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-react-require": "^3.1.3",
     "core-js": "^2.5.7",
@@ -64,11 +76,22 @@
     "style-loader": "^4.0.0",
     "todomvc-app-css": "^2.1.2",
     "todomvc-common": "^1.0.5",
+    "typescript": "^5.0.0",
     "use-onclickoutside": "^0.3.0",
+    "vite": "^5.0.0",
     "webpack": "^5.61.0"
   },
   "peerDependencies": {
+    "vite": ">=2.0.0",
     "webpack": "5.x"
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

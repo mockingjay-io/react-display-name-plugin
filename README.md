@@ -1,14 +1,14 @@
 ## Overview
 
-**webpack-react-component-name** is a Webpack plugin that makes your custom
+**webpack-react-component-name** is a build plugin for both Webpack and Vite that makes your custom
 React components visible within React Dev Tools and other tools that rely on the displayName parameter.
 
 _Note: This branch contains the version of this plugin that is compatible with
-Webpack 5. For support for Webpack 4, see 0.x [branch/version](https://github.com/mockingjay-io/webpack-react-component-name/tree/0.x.) of this plugin_
+Webpack 5 and Vite 2+. For support for Webpack 4, see 0.x [branch/version](https://github.com/mockingjay-io/webpack-react-component-name/tree/0.x.) of this plugin_
 
 Normally React component names are minified during compilation. This plugin
 makes these component names available in production bundles by hooking into
-Webpack's compilation process, traversing the AST looking for React component
+your build tool's compilation process, traversing the AST looking for React component
 definitions, and updating the emitted source code to populate the
 [displayName](https://reactjs.org/docs/react-component.html#displayname)
 property. This is the property that, when populated, is used by the React Dev
@@ -26,17 +26,46 @@ result in a small size increase to your production bundles.
 npm install @mockingjay-io/webpack-react-component-name --save-dev
 ```
 
+### For Webpack
+
 2. Import and add the plugin to your Webpack configuration:
 
 ```js
-plugins: [
-  new WebpackReactComponentNamePlugin({
-    parseDependencies: true,
-  })
-],
+const WebpackReactComponentNamePlugin = require('@mockingjay-io/webpack-react-component-name');
+
+module.exports = {
+  // ... other config
+  plugins: [
+    new WebpackReactComponentNamePlugin({
+      parseDependencies: true,
+    })
+  ],
+};
 ```
 
-Next.js users have to add this within `next.config.js`/`next.config.mjs`/`next.config.ts`. Examples available [here](https://github.com/mockingjay-io/webpack-react-component-name/tree/main/examples).
+**Next.js users** have to add this within `next.config.js`/`next.config.mjs`/`next.config.ts`. Examples available [here](https://github.com/mockingjay-io/webpack-react-component-name/tree/main/examples).
+
+### For Vite
+
+2. Import and add the plugin to your Vite configuration:
+
+```js
+// vite.config.js / vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import ViteReactComponentNamePlugin from '@mockingjay-io/webpack-react-component-name/vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    ViteReactComponentNamePlugin({
+      parseDependencies: true,
+    })
+  ],
+});
+```
+
+**Note:** The Vite plugin should be placed after the React plugin in your plugins array, as it needs to run after JSX transformation.
 
 ## Options
 

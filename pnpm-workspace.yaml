@@ -1,4 +1,7 @@
 packages:
   - '!**/test/**'
-  - 'examples/**'
+  - examples/**
   - '!examples/create-react*'
+
+onlyBuiltDependencies:
+  - esbuild
